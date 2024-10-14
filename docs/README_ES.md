@@ -1,5 +1,24 @@
 # DevChallenge 2: Sistema de inicio de sesión
 
+<details>
+  <summary><b>Índice</b></summary>
+
+- [DevChallenge 2: Sistema de inicio de sesión](#devchallenge-2-sistema-de-inicio-de-sesión)
+  - [Sobre el proyecto](#sobre-el-proyecto)
+  - [Prerequisitos](#prerequisitos)
+  - [Primeros pasos](#primeros-pasos)
+    - [1. Descarga el proyecto](#1-descarga-el-proyecto)
+    - [2. Descarga e instala las dependencias](#2-descarga-e-instala-las-dependencias)
+    - [3. Crea una copia del fichero ".env.example" que se llame ".env"](#3-crea-una-copia-del-fichero-envexample-que-se-llame-env)
+    - [4. Crea el fichero SQLite](#4-crea-el-fichero-sqlite)
+    - [5. Ejecuta las migraciones](#5-ejecuta-las-migraciones)
+    - [6. Registra las credenciales de los proveedores OAuth](#6-registra-las-credenciales-de-los-proveedores-oauth)
+    - [7. Prueba](#7-prueba)
+  - [Errores conocidos](#errores-conocidos)
+    - [1. Illuminate\\Encryption\\MissingAppKeyException: No application encryption key has been specified](#1-illuminateencryptionmissingappkeyexception-no-application-encryption-key-has-been-specified)
+
+</details>
+
 ## Sobre el proyecto
 
 Aplicación de inicio de sesión que permite a los usuarios acceder a un espacio indefinido donde pueden ver los datos asociados a la cuenta.
@@ -31,6 +50,7 @@ Este proyecto se ha desarrollado usando [Laravel](https://github.com/laravel/lar
 
 ```bash
 git clone https://github.com/Trane54/dev-challenge-2
+cd dev-challenge-2
 ```
 
 ### 2. Descarga e instala las dependencias
@@ -40,17 +60,19 @@ composer update
 composer install
 ```
 
-### 3. Crea el fichero SQLite
+### 3. Crea una copia del fichero ".env.example" que se llame ".env"
 
-Crea un fichero `database.sqlite` en la carpeta `/database`.
+Pulsa la combinación de teclas Control+C sobre el fichero `.env.example`, Control+V y renombra el nuevo fichero a `.env`. 😃
 
-### 4. Ejecuta las migraciones
+### 4. Crea el fichero SQLite
+
+Si quieres usar la configuración que hay por defecto para la base de datos, deberás crear un archivo con nombre `database.sqlite` dentro de la carpeta `/database`.
+
+### 5. Ejecuta las migraciones
 
 ```bash
 php artisan migrate:refresh
 ```
-
-### 5. Haz una copia del fichero .env.example llamada .env
 
 ### 6. Registra las credenciales de los proveedores OAuth
 
@@ -68,14 +90,37 @@ Remplaza el texto de ejemplo por tus propias credenciales OAuth.
 
 ### 7. Prueba
 
-Ejecuta el servidor.
+Dentro de la carpeta del proyecto abre 2 consolas de comandos. En la primera tendremos el servidor NPM, el cual irá actualizando en tiempo real la web conforme vayamos haciendo cambios.
+
+```bash
+npm install
+npm run dev
+```
+
+En la segunda consola de comandos, vamos a iniciar el servidor PHP.
 
 ```bash
 php artisan serve
 ```
 
-Accede a `http://localhost:8000` y verás que aparecerás en la página principal.
-
-Ahora, intenta iniciar sesión o registrarte en la aplicación.
+Una vez se haya iniciado el servidor de PHP, intenta acceder a [http://localhost:8000](http://localhost:8000), verás la página principal del proyecto.
 
 ![Project main page screenshot](../image.png)
+
+Intenta registrar una cuenta o inicia sesión utilizando alguno de los proveedores OAuth disponibles.
+
+![Login page screenshot](../image-1.png)
+
+## Errores conocidos
+
+### 1. Illuminate\Encryption\MissingAppKeyException: No application encryption key has been specified
+
+La primera vez cuando descargas un proyecto Laravel, necesitas generar una clave de encriptado.
+
+Para generarla puedes usar el comando:
+
+```bash
+php artisan key:generate
+```
+
+Si recargas la página, el error no debería de aparecer.
