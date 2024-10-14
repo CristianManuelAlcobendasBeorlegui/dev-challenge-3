@@ -16,3 +16,58 @@ By now, supported OAuth providers are:
 - GitHub
 
 This project was made using [Laravel](https://github.com/laravel/laravel).
+
+## How to use it
+
+### 1. Download the repository
+
+```bash
+git clone https://github.com/Trane54/dev-challenge-2
+```
+
+### 2. Download and install dependencies
+
+```bash
+composer update
+composer install
+```
+
+### 3. Create SQLite file
+
+Create a file with the name `database.sqlite` in `/database` folder.
+
+### 4. Execute migrations
+
+```bash
+php artisan migrate:refresh
+```
+
+### 5. Make a copy of .env.example file named .env
+
+### 6. Put Oauth credentials 
+
+In your `.env` file you will see the following properties:
+
+```text
+GOOGLE_CLIENT_ID=YOUR-GOOGLE-CLIENT-ID
+GOOGLE_SECRET=YOUR-GOOGLE-SECRET
+
+GITHUB_CLIENT_ID=YOUR-GITHUB-CLIENT-ID
+GITHUB_SECRET=YOUR-GITHUB-SECRET
+```
+
+Replace the sample text with your Oauth credentials.
+
+### 7. Test it
+
+Run the lavarel server
+
+```bash
+php artisan serve
+```
+
+Access to `http://localhost:8000` and you will see the main page.
+
+Now try to log in or register in application and you get it.
+
+![Project main page screenshot](image.png)
