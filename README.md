@@ -31,6 +31,7 @@ This project was made using [Laravel](https://github.com/laravel/laravel).
 
 ```bash
 git clone https://github.com/Trane54/dev-challenge-2
+cd dev-challenge-2
 ```
 
 ### 2. Download and install dependencies
@@ -40,19 +41,21 @@ composer update
 composer install
 ```
 
-### 3. Create SQLite file
+### 3. Make a copy of file ".env.example" named ".env"
 
-Create a file with the name `database.sqlite` in `/database` folder.
+Press Control+C to `.env.example` file, Control+V, rename de new file to `.env` 😃
 
-### 4. Execute migrations
+### 4. Create SQLite file
+
+If you want to use the default configuration, you will need to create a file named `database.sqlite` in `/database` folder where will store all application data.
+
+### 5. Execute migrations
 
 ```bash
 php artisan migrate:refresh
 ```
 
-### 5. Make a copy of .env.example file named .env
-
-### 6. Put Oauth credentials 
+### 6. Enter your own OAuth credentials
 
 In your `.env` file you will see the following properties:
 
@@ -68,14 +71,35 @@ Replace the sample text with your Oauth credentials.
 
 ### 7. Test it
 
-Run the lavarel server
+Open two CMDs. In first CMD start NPM developer server.
+
+```bash
+npm install
+npm run dev
+```
+
+Now, on the second CMD, start your PHP server.
 
 ```bash
 php artisan serve
 ```
 
-Access to `http://localhost:8000` and you will see the main page.
-
-Now try to log in or register in application and you get it.
+Once your server gets started, try to access [http://localhost:8000](http://localhost:8000), you will see the main page.
 
 ![Project main page screenshot](image.png)
+
+Try to register an account or login via an OAuth provider.
+
+![Login page screenshot](image-1.png)
+
+## Common errors
+
+### 1. Illuminate\Encryption\MissingAppKeyException: No application encryption key has been specified.
+
+When you download a Laravel project for first time, you need to generate an encryption key.
+
+You can generate it using the following command:
+
+```bash
+php artisan key:generate
+```
