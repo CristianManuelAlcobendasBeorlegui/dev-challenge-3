@@ -1,5 +1,24 @@
 # DevChallenge 2: Login
 
+<details>
+  <summary><b>Table of contents</b></summary>
+
+- [DevChallenge 2: Login](#devchallenge-2-login)
+  - [About](#about)
+  - [Prerequisites](#prerequisites)
+  - [How to use it](#how-to-use-it)
+    - [1. Download the repository](#1-download-the-repository)
+    - [2. Download and install dependencies](#2-download-and-install-dependencies)
+    - [3. Make a copy of file ".env.example" named ".env"](#3-make-a-copy-of-file-envexample-named-env)
+    - [4. Create SQLite file](#4-create-sqlite-file)
+    - [5. Execute migrations](#5-execute-migrations)
+    - [6. Enter your own OAuth credentials](#6-enter-your-own-oauth-credentials)
+    - [7. Test it](#7-test-it)
+  - [Common errors](#common-errors)
+    - [1. Illuminate\\Encryption\\MissingAppKeyException: No application encryption key has been specified.](#1-illuminateencryptionmissingappkeyexception-no-application-encryption-key-has-been-specified)
+
+</details>
+
 ## About
 
 Login application that enables you access to an undefined space where can see all data associated to the logged account.
