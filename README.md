@@ -1,6 +1,13 @@
 # DevChallenge 2: Login
 
 <details>
+  <summary><b>Other README language versions</b></summary>
+
+- [Spanish](docs/README_ES.md)
+
+</details>
+
+<details>
   <summary><b>Table of contents</b></summary>
 
 - [DevChallenge 2: Login](#devchallenge-2-login)

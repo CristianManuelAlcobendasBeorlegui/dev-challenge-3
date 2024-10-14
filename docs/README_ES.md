@@ -1,6 +1,13 @@
 # DevChallenge 2: Sistema de inicio de sesión
 
 <details>
+  <summary><b>Otras versiones de idioma del README</b></summary>
+
+- [Inglés](../README.md)
+
+</details>
+
+<details>
   <summary><b>Índice</b></summary>
 
 - [DevChallenge 2: Sistema de inicio de sesión](#devchallenge-2-sistema-de-inicio-de-sesión)
