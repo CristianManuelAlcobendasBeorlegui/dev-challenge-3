@@ -38,4 +38,23 @@ Route::get('/google-auth/callback', function () {
     return redirect('/dashboard');
 });
 
+Route::get('/github-auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+ 
+Route::get('/github-auth/callback', function () {
+    $user_github = Socialite::driver('github')->stateless()->user();
+
+    $user = User::updateOrCreate([
+        'email' => $user_github->email,
+    ], [
+        'name' => $user_github->name,
+        'email' => $user_github->email,
+    ]);
+
+    Auth::login($user, true);
+
+    return redirect('/dashboard');
+});
+
 require __DIR__.'/auth.php';
