@@ -17,6 +17,14 @@ Por ahora, los proveedores OAuth que están soportados son:
 
 Este proyecto se ha desarrollado usando [Laravel](https://github.com/laravel/laravel).
 
+## Prerequisitos
+
+- Instalar [Git](https://git-scm.com/downloads), el sistema de control de versiones.
+- Instalar [PHP](https://www.php.net/downloads.php), asigna el comando a una variable de entorno para ejecutar PHP desde cualquier ruta en la que te encuentres dentro de la consola de comandos. Puedes seguir la [guía](https://www.geeksforgeeks.org/how-to-execute-php-code-using-command-line/) de GeeksForGeeks.
+- Instalar [Node.JS](https://nodejs.org/es), si quieres saber más acerca puedes mirar la [documentación oficial](https://nodejs.org/docs/latest/api/).
+- Instalar [NPM](https://www.npmjs.com/), para más información hecha un ojo a la [documentación oficial](https://docs.npmjs.com/).
+- Instalar [Composer](https://getcomposer.org/), para más información hecha un ojo a la [documentación oficial](https://getcomposer.org/doc/).
+
 ## Primeros pasos
 
 ### 1. Descarga el proyecto
