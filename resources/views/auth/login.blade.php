@@ -91,8 +91,8 @@
           <div class="oauth">
             <span class="oauth__information">or you can</span>
             <div class="oauth__providers">
-              <a href="#" class="oauth__provider" title="Login with Google" aria-label="Login with Google"><i class="oauth__icon ti ti-brand-google-filled"></i></a>
-              <a href="#" class="oauth__provider" title="Login with GitHub" aria-label="Login with GitHub"><i class="oauth__icon ti ti-brand-github"></i></a>
+              <a href="/google-auth/redirect" class="oauth__provider" title="Login with Google" aria-label="Login with Google"><i class="oauth__icon ti ti-brand-google-filled"></i></a>
+              <a href="/github-auth/redirect" class="oauth__provider" title="Login with GitHub" aria-label="Login with GitHub"><i class="oauth__icon ti ti-brand-github"></i></a>
             </div>
           </div>
         </div>
