@@ -38,7 +38,8 @@ body {
     overflow: hidden;
   }
 
-  &.section--forgot-password {
+  &.section--forgot-password,
+  &.section--verify-email {
     color: white;
 
     width: 600px;
@@ -292,6 +293,14 @@ body {
   &:hover {
     gap: 10px;
   }
+
+  &.submit-btn--logout {
+    background: none;
+    color: lightgrey;
+    text-decoration: underline;
+    justify-content: flex-end;
+    margin-bottom: 0;
+  }
 }
 
 /* ========== OAuth ========== */
@@ -390,6 +399,22 @@ body {
   margin-bottom: 1rem;
 }
 
+/* ========== Verify email ========== */
+.verify-email__heading {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.verify-email__description {
+  font-size: 14px;
+  margin-bottom: 1rem;
+}
+
+.verify-email__new-email-send {
+  color: lightgreen;
+  font-size: 14px;
+  margin-bottom: 1rem;
+}
 
 /* ========== SOME TEXT ========== */
 
