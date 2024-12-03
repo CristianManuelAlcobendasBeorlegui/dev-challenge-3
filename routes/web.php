@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShoppingListController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
@@ -56,5 +57,12 @@ Route::get('/github-auth/callback', function () {
 
     return redirect('/dashboard');
 });
+
+Route::get('/shoppingLists', function() {
+  return view('shoppingLists');
+})->middleware(['auth', 'verified']);
+
+Route::get('/getShoppingLists', [ShoppingListController::class, 'index']);
+Route::post('/updateShoppingLists', [ShoppingListController::class, 'update']);
 
 require __DIR__.'/auth.php';

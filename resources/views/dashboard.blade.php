@@ -11,6 +11,10 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                  <h3 class="mb-1 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Options</h3>
+                  <a href="/shoppingLists" style="font-weight: bold; color: skyblue;" target="_blank">Shopping lists</a>
+                </div>
             </div>
         </div>
     </div>

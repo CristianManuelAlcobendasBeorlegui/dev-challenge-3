@@ -1,0 +1,1537 @@
+/******************************************************************************
+
+[Global variables]
+
+Define here general page style sheet layout.
+
+******************************************************************************/
+:root {
+  --aside-background-primary-color: rgb(32, 32, 32);
+  --aside-background-secondary-color: rgb(37, 37, 37);
+  --aside-background-tertiary-color: rgb(42, 42, 42);
+  --aside-text-primary-color: rgb(255, 255, 255);
+  --aside-text-secondary-color: rgb(155, 155, 155);
+  --main-background-primary-color: rgb(25, 25, 25);
+  --main-background-secondary-color: rgb(46, 46, 46);
+  --main-background-tertiary-color: rgb(64, 64, 64);
+}
+
+/******************************************************************************
+
+[Reset user agent style sheet]
+
+Override some of user agent default styles.
+
+******************************************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+  vertical-align: baseline;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  background: transparent;
+  cursor: inherit;
+  text-overflow: inherit;
+}
+
+/******************************************************************************
+
+[Generic classes]
+
+******************************************************************************/
+.featured-word {
+  font-weight: 600;
+  color: aqua;
+
+  &.featured-word--danger {
+    color: white;
+    text-shadow: 0 0 1px red,
+                 0 1px 1px red,
+                 0 2px 1px red,
+                 0 3px 1px red;
+  }
+}
+
+/******************************************************************************
+
+[Scrollbar]
+
+******************************************************************************/
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--aside-text-primary-color);
+  border-radius: .25rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--aside-background-primary-color);
+  width: 50px;
+}
+
+
+/******************************************************************************
+
+[Section]
+
+******************************************************************************/
+.section {
+  height: 100vh;
+
+  &.section--shopping-list-manager {
+    display: grid;
+    grid-template-columns: 20% 80%;
+  }
+}
+
+/******************************************************************************
+
+[Aside]
+
+******************************************************************************/
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: .75rem;
+  border-right: 2px solid var(--aside-background-tertiary-color);
+
+  background: var(--aside-background-primary-color);
+  color: var(--aside-text-secondary-color);
+  overflow: auto;
+}
+
+/*
+------------------------------------------------------------------------------
+In desktop view, this item is not displayed.
+------------------------------------------------------------------------------
+*/
+.aside__header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  font-size: 20px;
+  display: none;
+}
+
+.aside__user-data {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 14px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.aside__user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: .25rem;
+  object-fit: cover;
+}
+
+.aside__user-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.aside__user-input-field {
+  border: none;
+  padding: .5rem;
+  text-overflow: ellipsis;
+  width: 100%;
+  outline: 0;
+  pointer-events: none;
+}
+
+.aside__shopping-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/*
+------------------------------------------------------------------------------
+When this item gets 'hover', 'focus' or 'focus-within' the list item input 
+field padding changes. Only applies to own lists.
+------------------------------------------------------------------------------
+*/
+.aside__shopping-list {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  &.aside__shopping-list--own-lists {
+    .aside__list {
+      &:hover,
+      &:focus,
+      &:focus-within {
+        .aside__input-field {
+          padding-right: 3rem;
+        }
+      }
+    }
+  }
+}
+
+.aside__shopping-list-heading {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--aside-text-primary-color);
+
+  display: flex;
+  gap: .5rem;
+}
+
+.aside__shopping-list-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  font-size: 14px;
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.aside__no-list-message {
+  user-select: none;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.aside__lists {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+/*
+------------------------------------------------------------------------------
+When this item has 'hover', 'focus' or 'focus-within' associated list 
+options are displayed in page.
+------------------------------------------------------------------------------
+*/
+.aside__list {
+  position: relative;
+  border-radius: .25rem;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--aside-background-tertiary-color);
+  }
+
+  &.active {
+    color: var(--aside-text-primary-color);
+    background: var(--aside-background-tertiary-color);
+    font-weight: 600;
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    .aside__input-options {
+      display: flex;
+    }
+  }
+}
+
+.aside__input-box {
+  position: relative;
+  overflow: hidden;
+}
+
+.aside__input-field {
+  width: 100%;
+  padding: .5rem;
+  text-overflow: ellipsis;
+}
+
+.aside__input-options {
+  display: flex;
+  gap: .5rem;
+  
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 5px;
+  z-index: 250;
+
+  display: none;
+}
+
+.aside__input-option {
+  &.aside__input-option--share-list {
+    &:hover {
+      color: aqua;
+    }
+  }
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.aside__list-tooltip {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 500;
+
+  padding: .5rem;
+  border-radius: .5rem;
+  background: var(--aside-background-secondary-color);
+  color: var(--aside-text-primary-color);
+  font-weight: normal;
+  width: 200px;
+
+  display: none;
+
+  &.active,
+  &:focus,
+  &:focus-within {
+    display: block;
+  }
+}
+
+.aside__list-tooltip-options {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.aside__list-tooltip-option {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  padding: .25rem;
+  border-radius: .25rem;
+
+  &:hover {
+    background: rgb(49, 49, 49);
+  }
+
+  &.aside__list-tooltip-option--delete-list {
+    &:hover {
+      color: rgb(255, 0, 0);
+    }
+  }
+}
+
+.aside__add-list-button {
+  border: 2px dotted currentColor;
+  border-radius: .25rem;
+  padding: .25rem;
+
+  user-select: none;
+  font-style: italic;
+}
+
+/******************************************************************************
+
+[Shopping list manager main content]
+
+******************************************************************************/
+.main-content {
+  position: relative;
+  background: var(--main-background-primary-color);
+  color: white;
+}
+
+/*
+------------------------------------------------------------------------------
+In desktop view, this item is not displayed.
+------------------------------------------------------------------------------
+*/
+.main-content__options {
+  position: absolute;
+  top: 1.8rem;
+  left: 1rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 25px;
+  color: grey;
+  display: none;
+  z-index: 250;
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.create-your-first-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  width: 550px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.check-your-first-list__icon {
+  font-size: 45px;
+}
+
+.create-your-first-list__heading {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.create-your-first-list__description {
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+.create-your-first-list__cta-button {
+  background: linear-gradient(35deg, aqua 50%, white 50%);
+  background-size: 250%;
+  background-position: 100%;
+  color: black;
+  border-radius: .5rem;
+  font-weight: 600;
+  padding: 1rem;
+  user-select: none;
+  transition-duration: .5s;
+
+  &:hover {
+    background-position: 0%;
+    scale: 1.15;
+  }
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.what-can-i-do {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  
+  text-align: center;
+  margin: 0 auto;
+  width: 550px;
+  height: 100%;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.what-can-i-do__icon {
+  font-size: 45px;
+}
+
+.what-can-i-do__heading {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.what-can-i-do__description {
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+/******************************************************************************
+
+[List views]
+
+******************************************************************************/
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.list-view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--main-background-secondary-color);
+  overflow: hidden auto;
+  position: relative;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.list-view__header {
+  background: var(--main-background-primary-color);
+  padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem 1rem;
+}
+
+.list-view__list-name {
+  font-size: 32px;
+  font-weight: bold;
+  width: 550px;
+}
+
+.list-view__input-box {
+  position: relative;
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    .list-view__input-options {
+      display: flex;
+    }
+    
+    &:has(> .list-view__input-options) {
+      .list-view__input-field {
+        padding-right: 8rem;
+      }
+    }
+  }
+}
+
+.list-view__input-field {
+  padding: .5rem;
+  width: 100%;
+  text-overflow: ellipsis;
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless '.list-view__input-box' class
+has 'hover', 'focus' or 'focus-within'.
+------------------------------------------------------------------------------
+*/
+.list-view__input-options {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  gap: .5rem;
+  display: none;
+}
+
+.list-view__input-option {
+  &.list-view__input-option--delete-list {
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.list-view__header-options {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.list-view__add-category-button {
+  font-size: 14px;
+  background: cyan;
+  color: black;
+  padding: 1rem;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.list-view__main-content {
+  height: 100%;
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.list-view__create-your-first-category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  display: none;
+
+  width: 550px;
+  height: 100%;
+  padding: 1rem;
+  margin: 0 auto;
+  text-align: center;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.list-view__create-your-first-category-icon {
+  font-size: 45px;
+}
+
+.list-view__create-your-first-category-heading {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.list-view__create-your-first-category-description {
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+.list-view__create-your-first-category-cta-button {
+  background: linear-gradient(35deg, aqua 50%, white 50%);
+  background-size: 250%;
+  background-position: 100%;
+  color: black;
+  border-radius: .5rem;
+  font-weight: 600;
+  padding: 1rem;
+  user-select: none;
+  transition-duration: .5s;
+  display: flex;
+  gap: .5rem;
+
+  &:hover {
+    background-position: 0%;
+    scale: 1.15;
+  }
+}
+
+.list-view__categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 1rem;
+  
+  padding: 2rem 1rem;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.list-view__category {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.list-view__category-header {
+  font-size: 20px;
+  border-bottom: 2px solid aqua;
+  color: aqua;
+}
+
+.list-view__category-header-input-box {
+  position: relative;
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    .list-view__category-header-input-field {
+      padding-right: 3rem;
+    }
+
+    .list-view__category-header-input-options {
+      display: flex;
+    }
+  }
+}
+
+.list-view__category-header-input-field {
+  width: 100%;
+  padding: .5rem 0;
+  text-overflow: ellipsis;
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless '.list-view__category-header-input
+-box' class has 'hover', 'focus' or 'focus-within'.
+------------------------------------------------------------------------------
+*/
+.list-view__category-header-input-options {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+
+  display: flex;
+  gap: .5rem;
+  color: white;
+  display: none;
+}
+
+.list-view__category-header-input-option {
+  &.list-view__category-header-input-option--delete-category {
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.list-view__category-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  font-size: 14px;
+}
+
+.list-view__items {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.list-view__item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 0 .5rem;
+  border-radius: .25rem;
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+     background: var(--main-background-tertiary-color);
+
+    .list-view__item-input-field {
+      padding-right: 3rem;
+    }
+
+    .list-view__item-input-options {
+      display: flex;
+    }
+  }
+}
+
+.list-view__item-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--form-background);
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em rgb(255, 255, 255);
+    /* Windows High Contrast Mode */
+    background-color: CanvasText;
+  }
+
+  &:checked {
+    &~* {
+      &,
+      .list-view__item-input-field {
+        text-decoration: line-through;
+      }
+    }
+
+    &::before {
+      transform: scale(1);
+    }
+  }
+
+  &:focus {
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+  }  
+}
+
+.list-view__item-quantity {
+  &::after {
+    content: "x";
+    font-size: 12px;
+  }
+}
+
+.list-view__item-input-box {
+  position: relative;
+  width: 100%;
+}
+
+.list-view__item-input-field {
+  width: 100%;
+  padding: .5rem;
+  padding-left: 0;
+  text-overflow: ellipsis;
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless '.list-view__item-input-box' class 
+has 'hover', 'focus' or 'focus-within'.
+------------------------------------------------------------------------------
+*/
+.list-view__item-input-options {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+
+  display: flex;
+  gap: .5rem;
+  display: none;
+}
+
+.list-view__item-input-option {
+  &.list-view__item-input-option--delete-item {
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.list-view__add-item-button {
+  padding: .5rem;
+  border: 2px dotted currentColor;
+  border-radius: .25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+
+/******************************************************************************
+
+[Item views]
+
+******************************************************************************/
+/*
+------------------------------------------------------------------------------
+This item is not visible in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.item-view {
+  position: fixed;
+  top: 0;
+  right: -550px;
+  z-index: 375;
+  
+  width: 550px;
+  height: 100%;
+
+  background-color: rgb(42, 42, 42);
+  color: rgb(255, 255, 255);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition-duration: .2s;
+  border-left: 2px solid var(--aside-background-secondary-color);
+
+  &.active {
+    right: 0;
+  }
+}
+
+.item-view__header {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background-color: var(--main-background-primary-color);
+
+  padding: 1rem;
+  font-size: 20px;
+}
+
+.item-view__main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  padding: 0 1rem;
+}
+
+.item-view__item-name {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.item-view__input-field {
+  width: 100%;
+  text-overflow: ellipsis;
+}
+
+.item-view__item-features {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.item-view__item-feature {
+  display: grid;
+  grid-template-columns: 25% auto;
+  gap: 1rem .5rem;
+}
+
+.item-view__item-feature-name {
+  display: flex;
+  gap: .5rem;
+  font-weight: 600;
+  color: var(--aside-text-secondary-color);
+}
+
+.item-view__item-feature-input-box {
+  position: relative;
+}
+
+.item-view__item-feature-input-field {
+  width: 100%;
+  text-overflow: ellipsis;
+}
+
+.item-view__item-feature-input-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--form-background);
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em rgb(255, 255, 255);
+    /* Windows High Contrast Mode */
+    background-color: CanvasText;
+  }
+
+  &:checked {
+    &::before {
+      transform: scale(1);
+    }
+  }
+
+  &:focus {
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+  }  
+}
+
+.item-view__item-feature-textarea {
+  width: 100%;
+  resize: none;
+  height: 250px;
+}
+
+/******************************************************************************
+
+[Modals]
+
+******************************************************************************/
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.list-view__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid white;
+  border-radius: .5rem;
+  background-color: var(--main-background-secondary-color);
+  box-shadow: 0 0 0 100vh rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+
+  display: grid;
+  grid-template-rows: max-content
+                      auto;
+  display: none;
+
+  &.active {
+    display: grid;
+  }
+
+  &.list-view__modal--share-with {
+    width: 550px;
+    height: 550px;
+
+    .list-view__modal-main-content {
+      display: grid;
+      grid-template-rows: max-content
+                          auto;
+    }
+  }
+
+  &.list-view__modal--delete-shopping-list-confirmation {
+    width: 550px;
+    height: max-content;
+    border-color: red;
+    
+    .list-view__modal-header {
+      background-color: red;
+    }
+
+    .list-view__modal-main-content {
+      display: grid;
+    }
+  }
+}
+
+.list-view__modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: var(--main-background-primary-color);
+}
+
+.list-view__modal-header-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.list-view__modal-header-options {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.list-view__modal-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.list-view__modal-add-email-to-shared-list {
+  display: grid;
+  grid-template-columns: 75% auto;
+  gap: 1rem;
+
+  font-size: 14px;
+}
+
+.list-view__modal-add-email-to-shared-list-input-box {
+  position: relative;
+}
+
+.list-view__modal-add-email-to-shared-list-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+
+.list-view__modal-add-email-to-shared-list-input-field {
+  width: 100%;
+  padding: .5rem;
+  padding-left: 2rem;
+  border-radius: .25rem;
+  border: 2px solid var(--main-background-tertiary-color);
+  text-overflow: ellipsis;
+}
+
+.list-view__modal-add-email-to-shared-list-button {
+  background: aqua;
+  color: black;
+  border: 2px solid black;
+  border-radius: .25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+}
+
+.list-view__modal-add-email-to-shared-list-errors {
+  color: rgb(255 47 47);
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.list-view__modal-no-shared-email {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  user-select: none;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.list-view__modal-no-shared-email-icon {
+  font-size: 36px;
+}
+
+.list-view__modal-no-shared-email-heading {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.list-view__modal-no-shared-email-description {
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless it includes '.active' class.
+------------------------------------------------------------------------------
+*/
+.list-view__modal-shared-with {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.list-view__modal-shared-with-heading {
+  font-weight: 600;
+  color: aqua;
+  padding: .5rem 0;
+  border-bottom: 1px solid aqua;
+}
+
+.list-view__modal-shared-emails {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  font-size: 14px;
+}
+
+.list-view__modal-shared-email {
+  border-radius: .5rem;
+  user-select: none;
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    .list-view__modal-shared-email-input-field {
+      padding-right: 2rem;
+    }
+
+    .list-view__modal-shared-email-input-options {
+      display: flex;
+    }
+  }
+
+  &:hover {
+    background-color: var(--main-background-tertiary-color);
+  }
+}
+
+.list-view__modal-shared-email-input-box {
+  position: relative;
+}
+
+.list-view__modal-shared-email-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+/*
+------------------------------------------------------------------------------
+This item has a dynamic padding-right, depending if 
+'.list-view__modal-shared-email' class has 'hover', 'focus', 'focus-within'.
+------------------------------------------------------------------------------
+*/
+.list-view__modal-shared-email-input-field {
+  width: 100%;
+  padding: .5rem;
+  padding-left: 2.5rem;
+  text-overflow: ellipsis;
+}
+
+/*
+------------------------------------------------------------------------------
+This item is not displayed in page unless '.list-view__modal-shared-email' 
+has 'hover', 'focus' or 'focus-within'.
+------------------------------------------------------------------------------
+*/
+.list-view__modal-shared-email-input-options {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  text-overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  display: none;
+}
+
+.list-view__modal-shared-email-input-option {
+  &.list-view__modal-shared-email-input-option--delete-shared-email {
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.list-view__modal-delete-shopping-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.list-view__modal-delete-shopping-list-icon {
+  font-size: 36px;
+  background-color: red;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.list-view__modal-delete-shopping-list-heading {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.list-view__modal-delete-shopping-list-description {
+  font-size: 14px;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.list-view__modal-delete-options {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.list-view__modal-delete-option-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: .5rem;
+  font-weight: 600;
+  transition-duration: .07s;
+  
+  &:hover {
+    scale: .95;
+  }
+
+  &.list-view__modal-delete-option-button--keep-list {
+    background-color: var(--main-background-tertiary-color);
+  }
+
+  &.list-view__modal-delete-option-button--delete-list {
+    background-color: red;
+  }
+}
+
+/******************************************************************************
+
+[Utils]
+
+Elements that are used to give some functional help to page.
+
+******************************************************************************/
+.utils {
+  display: none;
+}
+
+/******************************************************************************
+
+[Media queries]
+
+******************************************************************************/
+/*
+------------------------------------------------------------------------------
+hi-res laptops and desktops
+------------------------------------------------------------------------------
+*/
+@media (max-width:1281px) {
+  .section {
+    &.section--shopping-list-manager {
+      grid-template-columns: 100%;
+    }
+  }
+
+  .aside {
+    gap: .5rem;
+    position: absolute;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    z-index: 500;
+    transition-duration: .2s;
+
+    &.active {
+      left: 0;
+    }
+  }
+
+  .aside__header {
+    display: flex;
+  }
+
+  .aside__user-data {
+    margin-bottom: 2rem;
+  }
+  
+  .main-content__options {
+    display: flex;
+  }
+
+  .list-view__header {
+    padding-left: 3rem;
+  }
+ }
+
+/*
+------------------------------------------------------------------------------
+big landscape tablets, laptops, and desktops
+------------------------------------------------------------------------------
+*/
+@media (max-width:1025px) {  }
+
+/*
+------------------------------------------------------------------------------
+tablet, landscape iPad, lo-res laptops ands desktops
+------------------------------------------------------------------------------
+*/
+@media (max-width:961px)  { 
+  .list-view__categories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 790px)  {
+  .main-content__options {
+    top: 1rem;
+  }
+
+  .list-view__header {
+    padding-left: 1rem;
+    padding-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .list-view__input-box {
+    width: 100%;
+  }
+
+  .list-view__input-field {
+    width: 100%;
+  }
+
+  .list-view__add-category-button {
+    padding: .75rem;
+  }
+}
+
+/*
+------------------------------------------------------------------------------
+portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones
+------------------------------------------------------------------------------
+*/
+@media (max-width:641px)  { 
+  .aside {
+    width: 100%;
+    left: -100%;
+  }
+
+  .aside__list-tooltip {
+    top: 100%;
+    left: 0;
+    width: 100%;
+  }
+
+  .what-can-i-do {
+    width: 100%;
+  }
+
+  .create-your-first-list {
+    width: 100%;
+  }
+
+  .list-view__categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .list-view__create-your-first-category {
+    width: 100%;
+  }
+  
+  .item-view {
+    width: 100%;
+    right: -100%;
+  }
+
+  .item-view__item-features {
+    gap: 3rem;
+  }
+
+  .item-view__item-feature {
+    grid-template-columns: 100%;
+    position: relative;
+
+    &:not(:last-child) {
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -50%;
+        width: 100%;
+        height: 1px;
+        background-color: var(--aside-text-secondary-color);
+        opacity: .3;
+      }
+    }
+  }
+
+  .list-view__modal {
+    width: 90%;
+
+    &.list-view__modal--share-with {
+      width: 90%;
+      overflow: auto;
+    }
+  
+    &.list-view__modal--delete-shopping-list-confirmation {
+      width: 90%;
+    }
+  }
+
+  .list-view__modal-add-email-to-shared-list {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'inputField'
+                         'inputErrors'
+                         'button';
+    &:has(.list-view__modal-add-email-to-shared-list-errors:empty) {
+      grid-template-areas: 'inputField'
+                           'button';
+      gap: 1rem 0;
+
+    }
+  }
+
+  .list-view__modal-add-email-to-shared-list-input-box {
+    grid-area: inputField;
+  }
+
+
+  .list-view__modal-add-email-to-shared-list-button {
+    padding: .5rem;
+    grid-area: button;
+  }
+
+  .list-view__modal-add-email-to-shared-list-errors {
+    grid-area: inputErrors;
+  }
+
+  .list-view__modal-delete-options {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/*
+------------------------------------------------------------------------------
+Portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide.
+------------------------------------------------------------------------------
+*/
+@media (max-width:481px)  { 
+  .list-view__categories {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/*
+------------------------------------------------------------------------------
+Smartphones, iPhone, portrait 480x320 phones
+------------------------------------------------------------------------------
+*/
+@media (min-width:320px)  {  }
